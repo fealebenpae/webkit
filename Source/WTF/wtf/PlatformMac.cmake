@@ -1,3 +1,7 @@
+list(APPEND WTF_INCLUDE_DIRECTORIES
+    "${WTF_DIR}/icu"
+)
+
 list(APPEND WTF_SOURCES
     mac/DeprecatedSymbolsUsedBySafari.mm
     mac/MainThreadMac.mm

@@ -23,7 +23,9 @@ set(DERIVED_SOURCES_WEBINSPECTORUI_DIR "${CMAKE_BINARY_DIR}/DerivedSources/WebIn
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Source/cmake")
 
-set(ENABLE_WEBCORE ON)
+if (NOT DEFINED ENABLE_WEBCORE)
+    set(ENABLE_WEBCORE ON)
+endif ()
 
 if (NOT DEFINED ENABLE_WEBKIT)
     set(ENABLE_WEBKIT ON)
@@ -128,7 +130,11 @@ if (SHARED_CORE)
     set(JavaScriptCore_LIBRARY_TYPE SHARED)
     set(WebCore_LIBRARY_TYPE SHARED)
 else ()
-    set(JavaScriptCore_LIBRARY_TYPE SHARED)
+    if (ENABLE_FTL_NATIVE_CALL_INLINING)
+        set(JavaScriptCore_LIBRARY_TYPE SHARED)
+    else ()
+        set(JavaScriptCore_LIBRARY_TYPE STATIC)
+    endif ()
     set(WebCore_LIBRARY_TYPE STATIC)
 endif ()
 
